@@ -5,6 +5,7 @@ Group Project Members
  - Joseph Fiifi Mensah
  - Joseph Uchenna Isreel
  - Eric Yao Kodzi
+ - Richard Sam
 
 
 Theme:
