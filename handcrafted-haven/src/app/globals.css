@@ -26,4 +26,6 @@ body {
 } */
 
 @import "tailwindcss";
-@plugin "daisyui";
+@plugin "daisyui" {
+  themes: cupcake;
+}
