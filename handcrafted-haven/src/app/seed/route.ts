@@ -1,4 +1,3 @@
-import bcrypt from 'bcryptjs';
 import postgres from 'postgres';
 // Assuming placeholder-data.js exists in ../lib/ and exports 'users'
 // For new tables, we'll focus on schema creation as no placeholder data is provided for them.
@@ -88,7 +87,7 @@ async function seedReviews() {
 
 export async function GET() {
   try {
-    await sql.begin(async (sql) => {
+    await sql.begin(async () => {
       await seedUsers();
       await seedSellerProfiles(); // Depends on users
       await seedProducts();     // Depends on seller_profiles
