@@ -1,5 +1,6 @@
 import bcrypt from 'bcryptjs';
 import postgres from 'postgres';
+import { users } from '../lib/placeholder-data'; 
 // Assuming placeholder-data.js exists in ../lib/ and exports 'users'
 // For new tables, we'll focus on schema creation as no placeholder data is provided for them.
 // import { users, invoices, customers, revenue } from '../lib/placeholder-data';
@@ -19,18 +20,18 @@ async function seedUsers() {
 
   console.log(`Created "users" table`);
 
-//   const insertedUsers = await Promise.all(
-//     users.map(async (user) => {
-//       const hashedPassword = await bcrypt.hash(user.password, 10);
-//       return sql`
-//         INSERT INTO users (id, name, email, password)
-//         VALUES (${user.id}, ${user.name}, ${user.email}, ${hashedPassword})
-//         ON CONFLICT (id) DO NOTHING;
-//       `;
-//     }),
-//   );
-//   console.log(`Seeded ${insertedUsers.length} users`);
-//   return insertedUsers;
+  const insertedUsers = await Promise.all(
+    users.map(async (user) => {
+      const hashedPassword = await bcrypt.hash(user.password, 10);
+      return sql`
+        INSERT INTO users (id, name, email, password)
+        VALUES (${user.id}, ${user.name}, ${user.email}, ${hashedPassword})
+        ON CONFLICT (id) DO NOTHING;
+      `;
+    }),
+  );
+  console.log(`Seeded ${insertedUsers.length} users`);
+  return insertedUsers;
 }
 
 async function seedSellerProfiles() {
