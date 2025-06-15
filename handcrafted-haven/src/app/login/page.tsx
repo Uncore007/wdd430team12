@@ -70,7 +70,7 @@ export default function LoginPage() {
           
           <div className="text-center">
             <p className="text-base-content/70">
-              Don't have an account?{' '}
+              Don&apos;t have an account?{' '}
               <Link href="/register" className="link link-primary font-medium">
                 Create Account
               </Link>
