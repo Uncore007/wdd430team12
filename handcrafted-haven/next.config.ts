@@ -2,9 +2,18 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   typescript: {
-    ignoreBuildErrors: true, // ✅ Properly disables TypeScript build errors
+    ignoreBuildErrors: true,
   },
-  /* Other config options can go here */
+  images: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "www.attavanti.com",
+        port: "",
+        pathname: "/product_images/uploaded_images/**",
+      },
+    ],
+  }
 };
 
-export default nextConfig; // ✅ Export correctly
+export default nextConfig;
