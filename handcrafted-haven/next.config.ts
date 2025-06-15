@@ -7,13 +7,19 @@ const nextConfig: NextConfig = {
   images: {
     remotePatterns: [
       {
-        protocol: "https",
-        hostname: "www.attavanti.com",
-        port: "",
-        pathname: "/product_images/uploaded_images/**",
+        protocol: 'https',
+        hostname: '**', 
+        port: '',
+        pathname: '/**',
+      },
+      {
+        protocol: 'http',
+        hostname: '**',
+        port: '',
+        pathname: '/**',
       },
     ],
-  }
+  },
 };
 
 export default nextConfig;
