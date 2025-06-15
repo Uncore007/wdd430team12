@@ -8,9 +8,9 @@ export default async function ProductGrid() {
     {products.map((product) => ( 
       <ProductCard 
         id={product.id}
-         key={product.id} title={product.product_name}
-         description={product.product_description}
-        imageUrl={product.product_images[0] || "/placeholder.jpg"}
+        key={product.id} title={product.product_name}
+        description={product.product_description}
+        imageUrl={product.product_images || "/placeholder.jpg"}
         price={`${product.product_price}`}
         avgRating={product.avgrating ?? 0}
         totalReviews={product.totalreviews}       
