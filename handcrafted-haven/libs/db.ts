@@ -1,5 +1,3 @@
-
-
 import { Product, ProductCreate } from "../types/product"; // Ensure correct product type import
 
 import { Pool } from "pg";
@@ -8,19 +6,6 @@ export const pool = new Pool({
   connectionString: process.env.POSTGRES_URL,
 });
 
-// export async function fetchProducts() {
-//   try {
-//     const result = await pool.query(`
-//       SELECT id, product_name, product_description, product_price, category, product_images
-//       FROM products
-//       ORDER BY created_at DESC
-//     `);
-//     return result.rows;
-//   } catch (error) {
-//     console.error("Database Error:", error);
-//     return [];
-//   }
-// }
 export async function fetchProducts() {
   try {
     const result = await pool.query(`
@@ -31,22 +16,21 @@ export async function fetchProducts() {
         products.product_price, 
         products.category, 
         products.product_images,
-        COALESCE(AVG(pr.rating), 0) AS avgRating,  -- ✅ Ensures avgRating is always a number
-        COALESCE(COUNT(pr.id), 0) AS totalReviews  -- ✅ Ensures totalReviews is always a number
+        COALESCE(AVG(pr.rating), 0) AS avgRating,
+        COALESCE(COUNT(pr.id), 0) AS totalReviews,
+        sp.profile_name AS seller_name  -- Added seller name
       FROM products
       LEFT JOIN product_reviews pr ON products.id = pr.product_id
-      GROUP BY products.id
+      LEFT JOIN seller_profiles sp ON products.seller_id = sp.user_id -- Join for seller name
+      GROUP BY products.id, sp.profile_name -- Added seller name to GROUP BY
       ORDER BY products.created_at DESC;
     `);
-
-    // console.log("Fetched products:", result.rows); // ✅ Debugging step
     return result.rows;
   } catch (error) {
     console.error("Database Error:", error);
     return [];
   }
 }
-
 
 export async function addProduct(sellerId: string, product: ProductCreate) {
   if (!sellerId || sellerId.trim() === "") {
@@ -64,7 +48,6 @@ export async function addProduct(sellerId: string, product: ProductCreate) {
     throw error;
   }
 }
-
 
 //This will modify product data when sellers submit changes.
 
