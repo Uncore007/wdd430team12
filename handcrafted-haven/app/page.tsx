@@ -27,6 +27,8 @@ interface Product {
   seller_name?: string;
 }
 
+export const revalidate = 0; // or a number of seconds for ISR
+
 export default async function Home() {
   const productsFromDb: ProductFromDb[] = await fetchProducts();
 
