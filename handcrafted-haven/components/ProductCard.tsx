@@ -1,10 +1,7 @@
 "use client"
 import Image from "next/image";
 
-import { useState } from "react";
-
 interface ProductCardProps {
-  id: string;
   title: string;
   description: string;
   imageUrl: string;
@@ -12,23 +9,21 @@ interface ProductCardProps {
   avgRating: string; 
   totalReviews: string;
   onRateReview: () => void;
-  
-  //  Optional because some products may not have ratings yet
-}
+  }
 
 
 
-export default function ProductCard({ id, title, description, imageUrl, price, avgRating, totalReviews, onRateReview }: ProductCardProps) {
+export default function ProductCard({ title, description, imageUrl, price, avgRating, totalReviews, onRateReview }: ProductCardProps) {
   return (
     <div className="card bg-white shadow-md rounded-lg overflow-hidden">
       <figure>
         <Image 
           src={imageUrl} 
           alt={title} 
-          width={600}  // Explicit width for better layout stability
-          height={192} // Explicit height matching aspect ratio
+          width={600}
+          height={192}
           className="w-full h-48 object-cover" 
-          priority // Ensures faster loading of primary images
+          priority
         />
       </figure>
       <div className="p-4">
