@@ -2,7 +2,6 @@
 import Image from "next/image";
 
 import { useState } from "react";
-import ReviewModal from "./ReviewModel"; //  Import review component
 
 interface ProductCardProps {
   id: string;
@@ -12,17 +11,14 @@ interface ProductCardProps {
   price: string;
   avgRating: string; 
   totalReviews: string;
+  onRateReview: () => void;
   
   //  Optional because some products may not have ratings yet
 }
 
 
 
-export default function ProductCard({ id, title, description, imageUrl, price, avgRating, totalReviews }: ProductCardProps) {
-  const [showReviewModal, setShowReviewModal] = useState(false);
-
-  // console.log(`${totalReviews}`)
-
+export default function ProductCard({ id, title, description, imageUrl, price, avgRating, totalReviews, onRateReview }: ProductCardProps) {
   return (
     <div className="card bg-white shadow-md rounded-lg overflow-hidden">
       <figure>
@@ -44,50 +40,9 @@ export default function ProductCard({ id, title, description, imageUrl, price, a
       </p>
         <div className="mt-4 flex justify-between">
           <button className="btn btn-outline">Add to Cart</button>
-          <button className="btn btn-primary" onClick={() => setShowReviewModal(true)}>Rate & Review</button>
+          <button className="btn btn-primary" onClick={onRateReview}>Rate & Review</button>
         </div>
       </div>
-
-      {showReviewModal && <ReviewModal productId={id} closeModal={() => setShowReviewModal(false)} />}
     </div>
   );
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// interface ProductCardProps {
-//   title: string;
-//   description: string;
-//   imageUrl: string;
-//   price: string;
-// }
-
-// export default function ProductCard({ title, description, imageUrl, price }: ProductCardProps) {
-//   return (
-//     <div className="card bg-white shadow-md rounded-lg overflow-hidden">
-//       <figure>
-//         <img className="w-full h-48 object-cover" src={imageUrl} alt={title} />
-//       </figure>
-//       <div className="p-4">
-//         <h2 className="text-lg font-semibold">{title}</h2>
-//         <p className="text-gray-600">{description}</p>
-//         <p className="text-xl font-bold mt-2">{price}</p>
-//         <div className="mt-4 flex justify-between">
-//           <button className="btn btn-outline">Add to Cart</button>
-//           <button className="btn btn-primary">Buy Now</button>
-//         </div>
-//       </div>
-//     </div>
-//   );
-// }

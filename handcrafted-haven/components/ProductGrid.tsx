@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useMemo } from "react";
 import ProductCard from "./ProductCard";
+import ReviewModal from "./ReviewModel";
 
 // Define the Product type based on data from fetchProducts and ProductCard props
 // Ideally, this would be imported from a shared types file (e.g., ../types/product.ts)
@@ -38,6 +39,8 @@ export default function ProductGrid({ initialProducts }: ProductGridProps) {
   // const [selectedSeller, setSelectedSeller] = useState<string>(""); // For seller filter
   const [uniqueCategories, setUniqueCategories] = useState<string[]>([]);
   // const [uniqueSellers, setUniqueSellers] = useState<string[]>([]); // For seller filter
+  const [showReviewModal, setShowReviewModal] = useState(false);
+  const [selectedProductId, setSelectedProductId] = useState<string | null>(null);
 
   useEffect(() => {
     if (initialProducts) {
@@ -84,6 +87,16 @@ export default function ProductGrid({ initialProducts }: ProductGridProps) {
     }
     return products;
   }, [initialProducts, selectedCategory, sortOption /*, selectedSeller */]);
+
+  const handleOpenReview = (productId: string) => {
+    setSelectedProductId(productId);
+    setShowReviewModal(true);
+  };
+
+  const handleCloseReview = () => {
+    setShowReviewModal(false);
+    setSelectedProductId(null);
+  };
 
   return (
     <div>
@@ -160,9 +173,14 @@ export default function ProductGrid({ initialProducts }: ProductGridProps) {
               price={`${product.product_price}`}
               avgRating={String(product.avgRating ?? 0)}
               totalReviews={String(product.totalReviews ?? 0)}
+              onRateReview={() => handleOpenReview(product.id)}
             />
           ))}
         </div>
+      )}
+
+      {showReviewModal && selectedProductId && (
+        <ReviewModal productId={selectedProductId} closeModal={handleCloseReview} />
       )}
     </div>
   );
