@@ -1,11 +1,15 @@
-// /** @type {import('tailwindcss').Config} */
-// module.exports = {
-//   content: [""],
-//   theme: {
-//     extend: {},
-//   },
-//   plugins: [require("daisyui")], // ✅ Correct way to import DaisyUI
-//   daisyui: {
-//     themes: ["cupcake"], // ✅ Enables the "cupcake" theme
-//   },
-// };
+/** @type {import('tailwindcss').Config} */
+module.exports = {
+  content: [
+    "./app/**/*.{js,ts,jsx,tsx,mdx}",
+    "./components/**/*.{js,ts,jsx,tsx,mdx}",
+    "./ui/**/*.{js,ts,jsx,tsx,mdx}",
+  ],
+  theme: {
+    extend: {},
+  },
+  plugins: [require("daisyui")],
+  daisyui: {
+    themes: ["cupcake"],
+  },
+};
